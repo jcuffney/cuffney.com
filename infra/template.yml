@@ -11,6 +11,11 @@ Parameters:
     Default: "cuffney.com"
     Description: domain name (subdomains included)
 
+  SsmNamespace:
+    Type: String
+    Default: "/cuffney/main/cuffney-com/"
+    Description: namespace for SSM parameters
+
 Resources:
 
   Bucket:
@@ -97,3 +102,18 @@ Resources:
               Fn::GetAtt:
                 - Distribution
                 - DomainName
+
+  DistributionId:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Type: String
+      Name: 
+        Fn::Sub: '${SsmNamespace}/distribution/id' 
+      Value: !Ref Distribution
+
+  SourceBucketName:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Type: String
+      Name: '${SsmNamespace}/source-bucket/name'
+      Value: !Ref Bucket

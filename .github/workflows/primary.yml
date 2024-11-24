@@ -44,7 +44,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     needs:
-      - lint
+      - install
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -104,8 +104,8 @@ jobs:
           sudo apt-get install jq
 
           # get required ssm parameters
-          DISTRIBUTION_ID=$(aws ssm get-parameter --name /cuffney/main/web/distribution/id | jq -r '.Parameter.Value')
-          SOURCE_BUCKET_NAME=$(aws ssm get-parameter --name /onset/dev/web/source-bucket/name | jq -r '.Parameter.Value')
+          DISTRIBUTION_ID=$(aws ssm get-parameter --name /cuffney/main/cuffney-com/distribution/id | jq -r '.Parameter.Value')
+          SOURCE_BUCKET_NAME=$(aws ssm get-parameter --name /onset/dev/cuffney-com/source-bucket/name | jq -r '.Parameter.Value')
           BUILD_DIRECTORY=./out
 
           # sync build to s3
