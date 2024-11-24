@@ -8,12 +8,12 @@ export default function Home() {
 
         <ul>
           <li>
-            <a href="resume.cuffney.com" target="_blank">
+            <a href="https://resume.cuffney.com" target="_blank" rel="noopener noreferrer">
               Resume
             </a>
           </li>
           <li>
-            <a href="resume.cuffney.com" target="_blank">
+            <a href="https://projects.cuffney.com" target="_blank" rel="noopener noreferrer">
               Projects
             </a>
           </li>
