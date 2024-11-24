@@ -57,8 +57,8 @@ jobs:
       - name: Upload Next.js build
         uses: actions/upload-artifact@v3
         with:
-          name: nextjs-build
-          path: .next/
+          name: build
+          path: .out/
   
   deploy:
     runs-on: ubuntu-latest
@@ -84,20 +84,33 @@ jobs:
       - name: Validate
         run: |
           aws cloudformation validate-template \
-                --template-body file://$TEMPLATE \
-                --region ${{ secrets.AWS_REGION }}
+            --template-body file://$TEMPLATE \
+            --region ${{ secrets.AWS_REGION }}
 
       - name: Deploy Infrastructure
         if: github.ref == 'refs/heads/main'
         run: |
           aws cloudformation deploy \
-                --stack-name $STACK_NAME \
-                --template-file $TEMPLATE \
-                --no-fail-on-empty-changeset \
-                --region ${{ secrets.AWS_REGION }}
+            --stack-name $STACK_NAME \
+            --template-file $TEMPLATE \
+            --no-fail-on-empty-changeset \
+            --region ${{ secrets.AWS_REGION }}
 
-      # - name: Upload build to S3
-      #   if: github.ref == 'refs/heads/main'
-      #   run: |
-      #     # aws ssm 
-      #     aws sync .next/ s3://$BUCKET_NAME
+      - name: Upload build to S3
+        if: github.ref == 'refs/heads/main'
+        run: |
+          # install jq
+          sudo apt-get update
+          sudo apt-get install jq
+
+          # get required ssm parameters
+          DISTRIBUTION_ID=$(aws ssm get-parameter --name /cuffney/main/web/distribution/id | jq -r '.Parameter.Value')
+          SOURCE_BUCKET_NAME=$(aws ssm get-parameter --name /onset/dev/web/source-bucket/name | jq -r '.Parameter.Value')
+          BUILD_DIRECTORY=./out
+
+          # sync build to s3
+          aws s3 sync $BUILD_DIRECTORY s3://$SOURCE_BUCKET_NAME --delete
+
+          aws cloudfront create-invalidation \
+            --distribution-id $DISTRIBUTION_ID \
+            --paths "/*"
