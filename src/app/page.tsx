@@ -17,13 +17,13 @@ export default function Home() {
         </section>
         <section>
           <a href="https://github.com/jcuffney" target="_blank" rel="noopener noreferrer">
-            Github ->
+            Github -&gt;
           </a>
           <a href="https://projects.cuffney.com" target="_blank" rel="noopener noreferrer">
-            Projects ->
+            Projects -&gt;
           </a>
           <a href="https://resume.cuffney.com" target="_blank" rel="noopener noreferrer">
-            Resume ->
+            Resume -&gt;
           </a>
         </section>
       </main>
