@@ -58,7 +58,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build
-          path: .out/
+          path: ./out
   
   deploy:
     runs-on: ubuntu-latest
@@ -119,6 +119,7 @@ jobs:
           # sync build to s3
           aws s3 sync $BUILD_DIRECTORY s3://$SOURCE_BUCKET_NAME --delete
 
+          # invalidate cloudfront cache
           aws cloudfront create-invalidation \
             --distribution-id $DISTRIBUTION_ID \
             --paths "/*"
