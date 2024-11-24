@@ -96,6 +96,13 @@ jobs:
             --no-fail-on-empty-changeset \
             --region ${{ secrets.AWS_REGION }}
 
+      - name: Download build artifact
+        if: github.ref == 'refs/heads/main'
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifact
+          path: ./out
+
       - name: Upload build to S3
         if: github.ref == 'refs/heads/main'
         run: |
