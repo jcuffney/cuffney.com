@@ -113,7 +113,7 @@ jobs:
 
           # get required ssm parameters
           DISTRIBUTION_ID=$(aws ssm get-parameter --name /cuffney/main/cuffney-com/distribution/id | jq -r '.Parameter.Value')
-          SOURCE_BUCKET_NAME=$(aws ssm get-parameter --name /onset/dev/cuffney-com/source-bucket/name | jq -r '.Parameter.Value')
+          SOURCE_BUCKET_NAME=$(aws ssm get-parameter --name /cuffney/main/cuffney-com/source-bucket/name | jq -r '.Parameter.Value')
           BUILD_DIRECTORY=./out
 
           # sync build to s3
