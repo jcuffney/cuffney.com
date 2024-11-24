@@ -101,7 +101,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: actions/download-artifact@v3
         with:
-          name: build-artifact
+          name: build
           path: ./out
 
       - name: Upload build to S3
