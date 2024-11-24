@@ -1,6 +1,4 @@
-
 Parameters:
-
   HostedZoneName:
     Type: String
     Default: "cuffney.com"
@@ -13,11 +11,10 @@ Parameters:
 
   SsmNamespace:
     Type: String
-    Default: "/cuffney/main/cuffney-com/"
+    Default: "/cuffney/main/cuffney-com"
     Description: namespace for SSM parameters
 
 Resources:
-
   Bucket:
     Type: AWS::S3::Bucket
     Properties:
@@ -79,7 +76,7 @@ Resources:
             ResponsePagePath: /index.html
           - ErrorCachingMinTTL: 300
             ErrorCode: 404
-       
+
   SslCert:
     Type: AWS::CertificateManager::Certificate
     Properties:
@@ -103,17 +100,18 @@ Resources:
                 - Distribution
                 - DomainName
 
-  DistributionId:
+  DistributionIdParameter:
     Type: AWS::SSM::Parameter
     Properties:
+      Name: !Sub "${SsmNamespace}/distribution/id"
       Type: String
-      Name: 
-        Fn::Sub: '${SsmNamespace}/distribution/id' 
       Value: !Ref Distribution
 
-  SourceBucketName:
+  # SSM Param for the source bucket name
+  # SSM Parameter of the disribution id
+  SourceBucketNameParameter:
     Type: AWS::SSM::Parameter
     Properties:
+      Name: !Sub "${SsmNamespace}/source-bucket/name"
       Type: String
-      Name: '${SsmNamespace}/source-bucket/name'
       Value: !Ref Bucket
