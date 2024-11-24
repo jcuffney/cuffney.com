@@ -53,3 +53,52 @@ jobs:
           cache: "npm"
       - run: npm ci
       - run: npm run build
+
+      - name: Upload Next.js build
+        uses: actions/upload-artifact@v3
+        with:
+          name: nextjs-build
+          path: .next/
+  
+  deploy:
+    runs-on: ubuntu-latest
+    needs: 
+      - build
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set Variables
+        run: |
+          echo "STACK_NAME=http-api-gateway" >> $GITHUB_ENV
+          echo "TEMPLATE=./infra/template.json" >> $GITHUB_ENV
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4.0.2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Validate
+        run: |
+          aws cloudformation validate-template \
+                --template-body file://$TEMPLATE \
+                --region ${{ secrets.AWS_REGION }}
+
+      - name: Deploy Infrastructure
+        if: github.ref == 'refs/heads/main'
+        run: |
+          aws cloudformation deploy \
+                --stack-name $STACK_NAME \
+                --template-file $TEMPLATE \
+                --no-fail-on-empty-changeset \
+                --region ${{ secrets.AWS_REGION }}
+
+
+      # - name: Upload build to S3
+      #   if: github.ref == 'refs/heads/main'
+      #   run: |
+      #     # aws ssm 
+      #     aws sync .next/ s3://$BUCKET_NAME
