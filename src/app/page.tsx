@@ -8,22 +8,25 @@ export default function Home() {
       <main className={styles.main}>
         <h2 className={styles.headline}>
           <span className={styles.brackets}>{"{"}{"{"}</span>
-          Joe Cuffney
+          <span>Joe Cuffney</span>
           <span className={styles.brackets}>{"}"}{"}"}</span>
         </h2>
-        <section>
+        <section className={styles.tagline}>
           <p>Senior Software Engineer.</p>
           <p>Specializing in React, NodeJS, and Rust.</p>
         </section>
-        <section>
+        <section className={styles.links}>
           <a href="https://github.com/jcuffney" target="_blank" rel="noopener noreferrer">
-            Github -&gt;
+            <span>Github</span> <span>-&gt;</span>
           </a>
           <a href="https://projects.cuffney.com" target="_blank" rel="noopener noreferrer">
-            Projects -&gt;
+            <span>Projects</span> <span>-&gt;</span>
           </a>
           <a href="https://resume.cuffney.com" target="_blank" rel="noopener noreferrer">
-            Resume -&gt;
+            <span>Resume</span> <span>-&gt;</span>
+          </a>
+          <a href="https://www.linkedin.com/in/cuffney/" target="_blank" rel="noopener noreferrer">
+            <span>Linkedin</span> <span>-&gt;</span>
           </a>
         </section>
       </main>

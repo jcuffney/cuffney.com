@@ -31,6 +31,7 @@
 
 .headline {
   display: flex;
+  gap: 8px;
   align-items: center;
   justify-content: center;
   color: var(--foreground);
@@ -46,7 +47,6 @@
 .page a {
   font-size: 1rem;
   font-weight: 400;
-  text-align: center;
   font-family: var(--font-inter-regular);
 }
 
@@ -54,4 +54,23 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.page .tagline {
+  text-align: center;
+}
+
+.page .links {
+  display: flex;
+  flex-shrink: initial;
+  justify-content: center;
+  width: 85px;
+  margin: auto;
+}
+
+.page .links a {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
