@@ -71,8 +71,8 @@ jobs:
       
       - name: Set Variables
         run: |
-          echo "STACK_NAME=http-api-gateway" >> $GITHUB_ENV
-          echo "TEMPLATE=./infra/template.json" >> $GITHUB_ENV
+          echo "STACK_NAME=cuffney-com" >> $GITHUB_ENV
+          echo "TEMPLATE=./infra/template.yml" >> $GITHUB_ENV
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4.0.2
@@ -95,7 +95,6 @@ jobs:
                 --template-file $TEMPLATE \
                 --no-fail-on-empty-changeset \
                 --region ${{ secrets.AWS_REGION }}
-
 
       # - name: Upload build to S3
       #   if: github.ref == 'refs/heads/main'
