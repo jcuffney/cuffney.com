@@ -12,10 +12,10 @@ export default function App() {
     <>
       <main>
         <header className="intro">
-          <p className="overline">Staff Software Engineer · Builder</p>
+          <p className="overline">Staff Software Engineer · Maker</p>
           <h1>Joseph Cuffney</h1>
           <p className="lede">
-            Ten-plus years shipping production platforms at Coinbase and Nike —
+            10+ years shipping production platforms at Coinbase and Nike —
             and Rust firmware, custom PCBs, and agentic AI systems as a maker.
             I bring software rigor to the physical world.
           </p>
