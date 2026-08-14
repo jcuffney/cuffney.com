@@ -1,18 +1,24 @@
 # cuffney.com
 
-Personal site. Hand-built static HTML & CSS — no framework, no build step.
+Personal site. React + Vite, built to fully static assets — the page is
+prerendered at build time (readable without JS), then hydrated.
 
-- `public/` is the docroot, exactly as served.
-- On push to `main`, [release.yml](.github/workflows/release.yml) packages `public/`
-  into `site.tar.gz` on a rolling `latest` release.
+- `src/` — the app (`App.jsx`, `styles.css`); `public/` — static assets
+  (fonts, favicon) copied into the build as-is.
+- `npm run build` → client build, SSR build of `src/entry-server.jsx`, then
+  [scripts/prerender.mjs](scripts/prerender.mjs) injects the rendered markup
+  into `dist/index.html`.
+- On push to `main`, [release.yml](.github/workflows/release.yml) builds and
+  packages `dist/` into `site.tar.gz` on a rolling `latest` release.
 - The [homelab](https://github.com/jcuffney/homelab) gateway role downloads
   `releases/latest/download/site.tar.gz` and extracts it into the nginx docroot
   for `cuffney.com` on each gateway deploy.
 
-## Local preview
+## Local dev
 
 ```bash
-python3 -m http.server 8080 -d public
+npm install
+npm run dev
 ```
 
 ## Fonts

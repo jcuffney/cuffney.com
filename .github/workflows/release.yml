@@ -1,6 +1,6 @@
 name: release
 
-# On every push to main, package public/ as site.tar.gz and publish it on a
+# On every push to main, build the site and package dist/ as site.tar.gz on a
 # rolling "latest" release. The homelab gateway role pulls
 # https://github.com/jcuffney/cuffney.com/releases/latest/download/site.tar.gz
 # into the cuffney.com docroot.
@@ -18,8 +18,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build site
+        run: |
+          npm ci
+          npm run build
+
       - name: Package site
-        run: tar -czf site.tar.gz -C public .
+        run: tar -czf site.tar.gz -C dist .
 
       - name: Publish rolling release
         env:
