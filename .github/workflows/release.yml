@@ -1,0 +1,37 @@
+name: release
+
+# On every push to main, package public/ as site.tar.gz and publish it on a
+# rolling "latest" release. The homelab gateway role pulls
+# https://github.com/jcuffney/cuffney.com/releases/latest/download/site.tar.gz
+# into the cuffney.com docroot.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Package site
+        run: tar -czf site.tar.gz -C public .
+
+      - name: Publish rolling release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git tag -f latest
+          git push -f origin latest
+          if gh release view latest >/dev/null 2>&1; then
+            gh release upload latest site.tar.gz --clobber
+          else
+            gh release create latest site.tar.gz \
+              --title "latest" \
+              --notes "Rolling release; site.tar.gz is the cuffney.com docroot."
+          fi
