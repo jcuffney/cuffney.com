@@ -1,9 +1,9 @@
 import "./styles.css";
 
 const LINKS = [
-  { label: "GitHub", href: "https://github.com/jcuffney" },
+  { label: "GitHub", href: "https://github.com/jcuffney", me: true },
   { label: "Resume", href: "https://resume.cuffney.com" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/cuffney/" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/cuffney/", me: true },
   { label: "Contact", href: "mailto:josephcuffney@gmail.com" },
 ];
 
@@ -23,9 +23,9 @@ export default function App() {
 
         <nav aria-label="Profiles and contact">
           <ul className="index">
-            {LINKS.map(({ label, href }, i) => (
+            {LINKS.map(({ label, href, me }, i) => (
               <li key={label}>
-                <a href={href}>
+                <a href={href} rel={me ? "me" : undefined}>
                   <span className="num" aria-hidden="true">
                     {String(i + 1).padStart(2, "0")}
                   </span>
