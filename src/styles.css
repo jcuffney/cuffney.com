@@ -42,6 +42,12 @@ body {
   padding: clamp(1.5rem, 5vw, 4rem);
 }
 
+/* React mounts into #root; display: contents lets main/footer keep acting
+   as body's flex items, preserving the margin-auto centering. */
+#root {
+  display: contents;
+}
+
 ::selection {
   background: var(--accent);
   color: var(--paper);
