@@ -23,5 +23,5 @@ npm run dev
 
 ## Fonts
 
-[Fraunces](https://github.com/undercasetype/Fraunces) variable font (SIL OFL),
-self-hosted latin subset in `public/fonts/`.
+[Inter](https://rsms.me/inter/) variable font (SIL OFL), self-hosted latin
+subset in `public/fonts/`.

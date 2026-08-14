@@ -12,11 +12,12 @@ export default function App() {
     <>
       <main>
         <header className="intro">
-          <p className="overline">Frontend Engineer</p>
+          <p className="overline">Staff Software Engineer · Builder</p>
           <h1>Joe Cuffney</h1>
           <p className="lede">
-            I build for the web — with a weakness for good typography, fast
-            pages, and the small details that make software feel considered.
+            Ten-plus years shipping production platforms at Coinbase and Nike —
+            and Rust firmware, custom PCBs, and agentic AI systems as a maker.
+            I bring software rigor to the physical world.
           </p>
         </header>
 
@@ -40,7 +41,7 @@ export default function App() {
       </main>
 
       <footer>
-        <p>&copy; 2026 Joe Cuffney &middot; hand-built with React</p>
+        <p>&copy; 2026 Joe Cuffney &middot; Rochester, NY</p>
       </footer>
     </>
   );
