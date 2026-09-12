@@ -1,0 +1,31 @@
+# LAN path: the UDM wildcard sends every *.cuffney.com name to the internal Traefik, which
+# only routes hosts that carry an Ingress of class `internal`. Without this, LAN clients get
+# a 404. The public path stays ingress.yaml (class `external`, via the tunnel). The apex is
+# not covered by the LAN wildcard and resolves publicly; it is listed for completeness.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cuffney-com-internal
+spec:
+  ingressClassName: internal
+  rules:
+    - host: cuffney.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cuffney-com
+                port:
+                  name: http
+    - host: www.cuffney.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cuffney-com
+                port:
+                  name: http
