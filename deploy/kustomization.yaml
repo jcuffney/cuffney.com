@@ -8,6 +8,7 @@ resources:
   - deployment.yaml
   - service.yaml
   - ingress.yaml
+  - ingress-internal.yaml
 configMapGenerator:
   - name: cuffney-com-nginx
     files:
