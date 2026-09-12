@@ -6,9 +6,7 @@ kind: Ingress
 metadata:
   name: cuffney-com
   annotations:
-    # TUNNEL_ID = Cloudflare tunnel UUID from manual-setup step 2.1
-    # (1Password item `cloudflare-tunnel`, field tunnel_id). Replace before syncing.
-    external-dns.alpha.kubernetes.io/target: "TUNNEL_ID.cfargotunnel.com"
+    external-dns.alpha.kubernetes.io/target: "b9bb1ac7-14ac-49c0-94f5-b43418e1cf6c.cfargotunnel.com"
 spec:
   ingressClassName: external
   rules:
