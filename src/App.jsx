@@ -12,12 +12,14 @@ export default function App() {
     <>
       <main>
         <header className="intro">
-          <p className="overline">Staff Software Engineer · Maker</p>
+          <p className="overline">Forward Deployed Engineer ·&nbsp;Hardware</p>
           <h1>Joseph Cuffney</h1>
           <p className="lede">
-            10+ years shipping production platforms at Coinbase and Nike —
-            and Rust firmware, custom PCBs, and agentic AI systems as a maker.
-            I bring software rigor to the physical world.
+            Staff engineer with 10+ years shipping production platforms at
+            Coinbase and Nike. I embed with the people who have the problem,
+            build the system, and stay until it works in the real world —
+            from agentic AI and cloud platforms down to Rust firmware and
+            custom PCBs.
           </p>
         </header>
 
