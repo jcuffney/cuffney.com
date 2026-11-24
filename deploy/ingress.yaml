@@ -1,14 +1,13 @@
-# Public via the Cloudflare tunnel: class `external` is the Traefik only the
-# in-cluster cloudflared reaches; the target annotation makes external-dns
-# create the Cloudflare CNAME for the apex.
+# The cluster has one way in: Traefik, ingress class `internal` (192.168.0.20). LAN clients reach
+# it directly; the public reaches it through the Cloudflare tunnel, whose public names are listed
+# in the homelab repository (platform/cloudflared). TLS is the cluster's wildcard certificate,
+# which also covers the apex.
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: cuffney-com
-  annotations:
-    external-dns.alpha.kubernetes.io/target: "b9bb1ac7-14ac-49c0-94f5-b43418e1cf6c.cfargotunnel.com"
 spec:
-  ingressClassName: external
+  ingressClassName: internal
   rules:
     - host: cuffney.com
       http:
